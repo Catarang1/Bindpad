@@ -29,7 +29,6 @@ public class Interface {
         content.getChildren().add(Interface.createItem());
         content.getChildren().add(Interface.createItem());
         content.getChildren().add(Interface.createItem());
-        content.getChildren().add(Interface.createItem());
 
         Label l = new Label("Add");
         BorderPane addbutton = new BorderPane();
