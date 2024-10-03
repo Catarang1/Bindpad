@@ -8,11 +8,12 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 		System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
 
 		if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
-            		try {
-                		GlobalScreen.unregisterNativeHook();
-            		} catch (NativeHookException nativeHookException) {
-                		nativeHookException.printStackTrace();
-            		}
-        	}
-	}
-}
+            try {
+            	GlobalScreen.unregisterNativeHook();
+            } catch (NativeHookException nativeHookException) {
+            	nativeHookException.printStackTrace();
+            }
+        }
+
+		e.getModifiers();
+}}

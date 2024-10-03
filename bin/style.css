@@ -1,3 +1,19 @@
+@font-face {
+    src: url('monaspace_xenon.ttf');
+}
+
+.font {
+    -fx-font-family: "Monaspace Xenon Var Regular";
+    -fx-font-size: 15px;
+}
+
+.item {
+    -fx-background-color: #171921;
+    -fx-border-color: black;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+}
+
 .text-area .content, .text-area {
     -fx-background-color: #12141a ;
     -fx-text-fill: white; 
@@ -5,14 +21,13 @@
     -fx-border-radius: 6px;
 }
 
-.text-area {
-    -fx-border-color: black;
-}
-
-.item {
-    -fx-background: #171921;
-    -fx-background-color: #171921;
+.item > * {
+    -fx-background-color: #12141a;
     -fx-border-color: black;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
+}
+
+.text_color0, .text_color0 * {
+    -fx-text-fill: #ab9df2;
 }
