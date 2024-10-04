@@ -3,7 +3,11 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
+
 public class GlobalKeyListenerExample implements NativeKeyListener {
+
+	final List<KeyCode> pressed = new ArrayList<KeyCode>();
+
 	public void nativeKeyPressed(NativeKeyEvent e) {
 		System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
 

@@ -1,6 +1,6 @@
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
-
+import java.util.Collection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

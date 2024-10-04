@@ -1,10 +1,11 @@
 @font-face {
-    src: url('monaspace_xenon.ttf');
+    src: url('MonaspaceXenon-Medium.otf');
 }
 
 .font {
-    -fx-font-family: "Monaspace Xenon Var Regular";
-    -fx-font-size: 15px;
+    -fx-font-family: "Monaspace Xenon Medium";
+    -fx-font-size: 14px;
+    -fx-font-smoothing-type: gray;
 }
 
 .item {
