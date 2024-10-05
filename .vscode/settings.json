@@ -21,6 +21,14 @@
 		"c:\\Program Files\\Java\\javafx-sdk-21.0.4\\lib\\javafx.swing.jar",
 		"c:\\Program Files\\Java\\javafx-sdk-21.0.4\\lib\\javafx.web.jar",
 		"c:\\Program Files\\Java\\javafx-sdk-21.0.4\\lib\\javafx-swt.jar",
-		"c:\\Code\\java_libraries\\jnativehook-2.2.2.jar"
+		"c:\\Code\\java_libraries\\jnativehook-2.2.2.jar",
+		"c:\\javafx-sdk\\lib\\javafx.base.jar",
+		"c:\\javafx-sdk\\lib\\javafx.controls.jar",
+		"c:\\javafx-sdk\\lib\\javafx.fxml.jar",
+		"c:\\javafx-sdk\\lib\\javafx.graphics.jar",
+		"c:\\javafx-sdk\\lib\\javafx.media.jar",
+		"c:\\javafx-sdk\\lib\\javafx.swing.jar",
+		"c:\\javafx-sdk\\lib\\javafx.web.jar",
+		"c:\\javafx-sdk\\lib\\javafx-swt.jar"
 	]
 }
