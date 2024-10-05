@@ -1,8 +1,10 @@
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
-import java.util.Collection;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class App extends Application {
     public static void main(String[] args) throws Exception {
@@ -11,10 +13,22 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        @Override public void handle(WindowEvent t) {
+            try {
+                GlobalScreen.unregisterNativeHook();
+            } catch (NativeHookException e) {
+                e.printStackTrace();
+            }
+            Platform.exit();
+            System.exit(0);
+        }
+        });
+
         /* HOOK TEST */
 
-        /* try {
+        try {
 			GlobalScreen.registerNativeHook();
 		}
 		catch (NativeHookException ex) {
@@ -24,11 +38,13 @@ public class App extends Application {
 			System.exit(1);
 		}
 
-		GlobalScreen.addNativeKeyListener(new GlobalKeyListenerExample()); */
+		GlobalScreen.addNativeKeyListener(GlobalKeyListener.keyListener);
 
         /* HOOK TEST END */
 
         Interface.init(primaryStage);
         primaryStage.show();
     }
+
+    
 }

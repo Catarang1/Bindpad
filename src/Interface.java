@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Interface {
@@ -62,6 +59,7 @@ public class Interface {
         bindButton.getStyleClass().addAll("text_color0");
         bindButton.setPrefHeight(ITEM_HEIGHT - PADDING.getBottom() * 2);
         bindButton.getStyleClass().add("font");
+
         TextArea contentTextArea = new TextArea();
         contentTextArea.setPrefColumnCount(1);
 
@@ -75,7 +73,7 @@ public class Interface {
         item.setAlignment(Pos.CENTER_LEFT);
         item.setPadding(PADDING);
         item.setSpacing(10);
-        item.setHgrow(contentTextArea, Priority.SOMETIMES);
+        HBox.setHgrow(contentTextArea, Priority.SOMETIMES);
         return item;
     }
 
