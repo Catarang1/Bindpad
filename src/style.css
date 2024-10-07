@@ -5,7 +5,7 @@
 .font {
     -fx-font-family: "Monaspace Xenon Medium";
     -fx-font-size: 14px;
-    -fx-font-smoothing-type: gray;
+    -fx-font-smoothing-type: LCD;
 }
 
 .item {
