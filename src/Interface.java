@@ -1,5 +1,3 @@
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
-
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

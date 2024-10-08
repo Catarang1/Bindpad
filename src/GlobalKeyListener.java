@@ -16,7 +16,7 @@ public class GlobalKeyListener implements NativeKeyListener {
 	static {
 
 		bindList.add(new Keybind());
-
+		
 		keyListener = new GlobalKeyListener() {
 			public void nativeKeyPressed(NativeKeyEvent newKeyboardEvent) {
 				// IGNORE MODIFIERS
