@@ -4,8 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
@@ -18,41 +16,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class Interface {
 
     public static double ITEM_HEIGHT = 60;
     public static Insets PADDING = new Insets(10);
     public static double LABEL_FONT_SIZE = 16;
-    public static ListView<Keybind> content;
+    public static VBox content = new VBox();
 
     protected static void init(Stage primaryStage) {
+
+        content.setSpacing(10);
     
-
-        content = new ListView<Keybind>(GlobalKeyListener.bindList);
-        content.setCellFactory(new Callback<ListView<Keybind>,ListCell<Keybind>>() {
-            @Override
-            public ListCell<Keybind> call(ListView<Keybind> param) {
-                return new ListCell<Keybind>(){
-                    @Override
-                    public void updateItem(Keybind keybind, boolean empty) {
-                        super.updateItem(keybind, empty);
-                        if (empty || keybind == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            setText(null);
-                            setGraphic(createItem(keybind));
-                        }
-                    }
-                };
-            
-            }
-        });
-    
-
-
         Button addbutton = new Button("Add");
         addbutton.getStyleClass().addAll("text_color0", "item");
         addbutton.setPrefHeight(ITEM_HEIGHT);

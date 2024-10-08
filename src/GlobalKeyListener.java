@@ -1,9 +1,7 @@
+import java.util.ArrayList;
+
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class GlobalKeyListener implements NativeKeyListener {
 
@@ -11,7 +9,7 @@ public class GlobalKeyListener implements NativeKeyListener {
 	public static boolean BINDING_MODE = false;
 	public static StringBuilder sb = new StringBuilder();
 	public static Keybind toBeChanged = null;
-	public static ObservableList<Keybind> bindList = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+	public static ArrayList<Keybind> bindList = new ArrayList<>();
 
 	static {
 
@@ -24,14 +22,13 @@ public class GlobalKeyListener implements NativeKeyListener {
 				if(BINDING_MODE) {
 					System.out.println("key pressed in binding mode");
 					bindList.get(bindList.indexOf(toBeChanged)).setEvent(newKeyboardEvent);
-					Interface.content.refresh();
 					BINDING_MODE = false;
 					toBeChanged = null;
 				} else {
-					for (Keybind nativeKeyEvent : GlobalKeyListener.bindList) {
-						if (nativeKeyEvent.getEvent().getKeyCode() != newKeyboardEvent.getKeyCode()) continue;
-						if (nativeKeyEvent.getEvent().getModifiers() != newKeyboardEvent.getModifiers()) continue;
-						System.out.println(createKeybindString(newKeyboardEvent) + " in the List.");
+					for (Keybind keybind : GlobalKeyListener.bindList) {
+						if (keybind.getEvent().getKeyCode() != newKeyboardEvent.getKeyCode()) continue;
+						if (keybind.getEvent().getModifiers() != newKeyboardEvent.getModifiers()) continue;
+						System.out.println(keybind.getContent());
 					}
 				}
 			}	
