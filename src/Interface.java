@@ -1,10 +1,11 @@
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -26,11 +27,12 @@ public class Interface {
     public static double ITEM_HEIGHT = 60;
     public static Insets PADDING = new Insets(10);
     public static double LABEL_FONT_SIZE = 16;
+    public static ListView<Keybind> content;
 
     protected static void init(Stage primaryStage) {
     
 
-        ListView<Keybind> content = new ListView<Keybind>(GlobalKeyListener.bindList);
+        content = new ListView<Keybind>(GlobalKeyListener.bindList);
         content.setCellFactory(new Callback<ListView<Keybind>,ListCell<Keybind>>() {
             @Override
             public ListCell<Keybind> call(ListView<Keybind> param) {
@@ -38,12 +40,12 @@ public class Interface {
                     @Override
                     public void updateItem(Keybind keybind, boolean empty) {
                         super.updateItem(keybind, empty);
-                        if (empty || keybind != null) {
+                        if (empty || keybind == null) {
                             setText(null);
                             setGraphic(null);
                         } else {
-                            setText(keybind.toString());
-                            setGraphic(null);
+                            setText(null);
+                            setGraphic(createItem(keybind));
                         }
                     }
                 };
@@ -81,21 +83,26 @@ public class Interface {
         // System.out.println(bindFont.getName());
     }
 
-    protected static HBox createItem() {
-        Button bindButton = new Button("UNDEFINED");
+    protected static HBox createItem(Keybind k) {
+        Button bindButton = new Button(GlobalKeyListener.createKeybindString(k.getEvent()));
         bindButton.getStyleClass().addAll("text_color0");
         bindButton.setPrefHeight(ITEM_HEIGHT - PADDING.getBottom() * 2);
         bindButton.getStyleClass().add("font");
         bindButton.setOnMouseClicked((e) -> {
-            bindButton.setText("<Input Bind Key>");
+            k.setEvent(Keybind.DEFAULT_EVENT);
+            GlobalKeyListener.toBeChanged = k;
+            GlobalKeyListener.BINDING_MODE = true;
+            System.out.println(k.equals(GlobalKeyListener.toBeChanged));
         });
 
         TextArea contentTextArea = new TextArea();
         contentTextArea.setPrefColumnCount(1);
+        contentTextArea.setText(k.getContent());
 
         Button deleteButton = new Button("delete");
         deleteButton.setPrefHeight(ITEM_HEIGHT - PADDING.getBottom() * 2);
         deleteButton.getStyleClass().addAll("text_color0");
+        deleteButton.setOnAction((e) -> GlobalKeyListener.bindList.remove(k));
 
         HBox item = new HBox(bindButton, contentTextArea, deleteButton);
         item.getStyleClass().add("item");
@@ -104,12 +111,6 @@ public class Interface {
         item.setPadding(PADDING);
         item.setSpacing(10);
         HBox.setHgrow(contentTextArea, Priority.SOMETIMES);
-        return item;
-    }
-
-    protected static HBox createItem(String key, String content) {
-        HBox item = createItem();
-        // add key and content as visible elements
         return item;
     }
 

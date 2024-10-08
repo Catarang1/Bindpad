@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
@@ -12,6 +10,7 @@ public class GlobalKeyListener implements NativeKeyListener {
 	public static GlobalKeyListener keyListener;
 	public static boolean BINDING_MODE = false;
 	public static StringBuilder sb = new StringBuilder();
+	public static Keybind toBeChanged = null;
 	public static ObservableList<Keybind> bindList = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
 
 	static {
@@ -22,17 +21,12 @@ public class GlobalKeyListener implements NativeKeyListener {
 			public void nativeKeyPressed(NativeKeyEvent newKeyboardEvent) {
 				// IGNORE MODIFIERS
 				if (isModifier(newKeyboardEvent) || newKeyboardEvent.getKeyCode() == NativeKeyEvent.VC_ENTER) return;
-				// USE F2 FOR BINDING TOGGLE AND NOTHING ELSE
-				if (newKeyboardEvent.getKeyCode() == NativeKeyEvent.VC_F2 ) {
-					BINDING_MODE = !BINDING_MODE;
-					System.out.println("Binding mode: " + BINDING_MODE);
-					return;
-				}
 				if(BINDING_MODE) {
-					System.out.println("Registering " + createKeybindString(newKeyboardEvent));
-					Platform.runLater(() -> bindList.add(new Keybind(newKeyboardEvent)));
-					
-
+					System.out.println("key pressed in binding mode");
+					bindList.get(bindList.indexOf(toBeChanged)).setEvent(newKeyboardEvent);
+					Interface.content.refresh();
+					BINDING_MODE = false;
+					toBeChanged = null;
 				} else {
 					for (Keybind nativeKeyEvent : GlobalKeyListener.bindList) {
 						if (nativeKeyEvent.getEvent().getKeyCode() != newKeyboardEvent.getKeyCode()) continue;
@@ -52,7 +46,7 @@ public class GlobalKeyListener implements NativeKeyListener {
 			e.getKeyCode() == NativeKeyEvent.VC_META;
 	}
 
-	private static String createKeybindString(NativeKeyEvent nke) {
+	public static String createKeybindString(NativeKeyEvent nke) {
 		sb.setLength(0);
 		if (nke.getModifiers() != 0) 
 			sb.append(NativeKeyEvent.getModifiersText(nke.getModifiers()) + "+");

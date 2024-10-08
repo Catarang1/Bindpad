@@ -2,8 +2,9 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
 public class Keybind {
 
-    private final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
+    protected final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
     private final static StringBuilder sb = new StringBuilder();
+
     private NativeKeyEvent event;
     private String content;
 
@@ -17,8 +18,16 @@ public class Keybind {
         this.event = nke;
     }
 
+    public void setEvent(NativeKeyEvent event) {
+        this.event = event;
+    }
+
     public NativeKeyEvent getEvent() {
         return event;
+    }
+
+    public String getContent() {
+        return this.content;
     }
 
     @Override
