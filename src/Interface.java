@@ -1,6 +1,4 @@
-import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -62,6 +59,7 @@ public class Interface {
         GridPane root = new GridPane();
         root.setBackground(new Background(new BackgroundFill(Color.web("#12141a"),  
             CornerRadii.EMPTY, Insets.EMPTY)));
+            root.getStyleClass().add("contentRoot");
         GridPane.setVgrow(contentAreaExtended, Priority.ALWAYS);
         GridPane.setHgrow(okButton, Priority.ALWAYS);
         GridPane.setHgrow(cancelButton, Priority.ALWAYS);

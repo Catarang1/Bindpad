@@ -1,10 +1,9 @@
 @font-face {
-    src: url('MonaspaceXenon-Medium.otf');
+    src: url('../res/NotoSansDisplay-Regular.ttf');
 }
 
 .font {
-    -fx-font-family: "Monaspace Xenon Medium";
-    -fx-font-size: 14px;
+    -fx-font-family: "Noto Sans Display";
     -fx-font-smoothing-type: LCD;
 }
 
@@ -23,13 +22,12 @@
 }
 
 .button {
-    -fx-background-color: #171921;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
     -fx-border-color: black;
     -fx-text-fill: #ab9df2;
     -fx-min-height: 50px;
-    -fx-font-size: 15px;
+    -fx-font-size: 16px;
 }
 
 .text-area {
@@ -37,9 +35,21 @@
     -fx-text-fill: white; 
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
-    -fx-font-size: 15px;
+    -fx-font-size: 16px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
-.text-area .content {
-    -fx-background-color: #12141a ;
+.item > .text-area .content {
+    -fx-background-color: #12141a;
+}
+
+.contentRoot {
+    -fx-background-color: #12141a;
+}
+
+.contentRoot > * , .contentRoot > .text-area .content {
+    -fx-background-color: #171921;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
 }
