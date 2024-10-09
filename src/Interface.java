@@ -44,7 +44,7 @@ public class Interface {
         ScrollPane root = new ScrollPane();
         root.setContent(wrapper);
         root.setStyle("-fx-background: #12141a; -fx-background-color: #12141a");
-        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         root.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         root.setFitToWidth(true);
 
@@ -52,28 +52,16 @@ public class Interface {
         Scene scene = new Scene(root, 400, 600);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
-        // System.out.println(bindFont.getName());
-    }
-
-    public static void openBindWindow() {
-        Platform.runLater(() -> {
-            Stage stage = new Stage();
-            Text t = new Text("modal");
-            Parent root = new VBox(t);
-            stage.setScene(new Scene(root));
-            stage.setTitle("My modal window");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-        });
-
     }
 
     public static String openEditContentWindow(String initialString) {
         Stage stage = new Stage();
         TextArea contentAreaExtended = new TextArea(initialString);
-        Button okButton = new Button("ok");
-        Button cancelButton = new Button("cancel");
+        Button okButton = new Button("Submit");
+        Button cancelButton = new Button("Cancel");
         GridPane root = new GridPane();
+        root.setBackground(new Background(new BackgroundFill(Color.web("#12141a"),  
+            CornerRadii.EMPTY, Insets.EMPTY)));
         GridPane.setVgrow(contentAreaExtended, Priority.ALWAYS);
         GridPane.setHgrow(okButton, Priority.ALWAYS);
         GridPane.setHgrow(cancelButton, Priority.ALWAYS);
@@ -92,6 +80,7 @@ public class Interface {
         root.add(cancelButton, 1, 1);
 
         stage.setScene(new Scene(root));
+        stage.getScene().getStylesheets().add("style.css");
         stage.setTitle("Content edit");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();

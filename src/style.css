@@ -15,13 +15,6 @@
     -fx-border-radius: 6px;
 }
 
-.text-area .content, .text-area {
-    -fx-background-color: #12141a ;
-    -fx-text-fill: white; 
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
-}
-
 .item > * {
     -fx-background-color: #12141a;
     -fx-border-color: black;
@@ -29,6 +22,24 @@
     -fx-border-radius: 6px;
 }
 
-.text_color0, .text_color0 * {
+.button {
+    -fx-background-color: #171921;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: black;
     -fx-text-fill: #ab9df2;
+    -fx-min-height: 50px;
+    -fx-font-size: 15px;
+}
+
+.text-area {
+    -fx-border-color: black;
+    -fx-text-fill: white; 
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-size: 15px;
+}
+
+.text-area .content {
+    -fx-background-color: #12141a ;
 }

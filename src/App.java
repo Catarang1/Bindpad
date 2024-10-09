@@ -1,13 +1,9 @@
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.scene.input.Clipboard;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
