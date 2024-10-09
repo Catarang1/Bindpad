@@ -25,3 +25,4 @@ replay_pid*
 #ignore VSC config files
 *.json
 .vscode/*
+**/.vscode/*
