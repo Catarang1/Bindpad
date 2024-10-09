@@ -9,6 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -67,23 +68,34 @@ public class Interface {
 
     }
 
-    public static void openEditContentWindow() {
-        Platform.runLater(() -> {
-            TextArea contentAreaExtended = new TextArea();
-            Button okButton = new Button();
-            Button cancelButton = new Button();
-            Parent root = new GridPane();
-            root.getChildrenUnmodifiable().addAll(okButton, cancelButton, contentAreaExtended);
-            GridPane.setColumnSpan(contentAreaExtended, 2);
-        
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("My modal window");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
-            
+    public static String openEditContentWindow(String initialString) {
+        Stage stage = new Stage();
+        TextArea contentAreaExtended = new TextArea(initialString);
+        Button okButton = new Button("ok");
+        Button cancelButton = new Button("cancel");
+        GridPane root = new GridPane();
+        GridPane.setVgrow(contentAreaExtended, Priority.ALWAYS);
+        GridPane.setHgrow(okButton, Priority.ALWAYS);
+        GridPane.setHgrow(cancelButton, Priority.ALWAYS);
+        okButton.setMaxWidth(Double.MAX_VALUE);
+        cancelButton.setMaxWidth(Double.MAX_VALUE);
+        cancelButton.setOnAction(e -> {
+            contentAreaExtended.setText(initialString);
+            stage.close();
         });
-        ;
+        root.setHgap(10);
+        root.setVgap(10);
+        root.setPadding(PADDING);
+        root.add(contentAreaExtended, 0, 0);
+        GridPane.setColumnSpan(contentAreaExtended, 2);
+        root.add(okButton, 0, 1);
+        root.add(cancelButton, 1, 1);
+
+        stage.setScene(new Scene(root));
+        stage.setTitle("Content edit");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+        return contentAreaExtended.getText();
     }
 
 }

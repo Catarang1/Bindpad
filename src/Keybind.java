@@ -103,8 +103,9 @@ public class Keybind {
 
         contentArea.setOnMouseClicked( e -> {
             if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2 ) {
-                System.out.println("implement open new window with detailed content.");
-                Interface.openEditContentWindow();
+                String extendedAreaContent = Interface.openEditContentWindow(content);
+                content = extendedAreaContent;
+                contentArea.setText(extendedAreaContent);
             }
         });
 
