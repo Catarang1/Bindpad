@@ -20,7 +20,6 @@ public class GlobalKeyListener implements NativeKeyListener {
 				// IGNORE MODIFIERS
 				if (isModifier(newKeyboardEvent) || newKeyboardEvent.getKeyCode() == NativeKeyEvent.VC_ENTER) return;
 				if(BINDING_MODE) {
-					System.out.println("key pressed in binding mode");
 					bindList.get(bindList.indexOf(toBeChanged)).setEvent(newKeyboardEvent);
 					BINDING_MODE = false;
 					toBeChanged = null;

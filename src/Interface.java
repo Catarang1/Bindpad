@@ -1,6 +1,5 @@
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,8 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -56,37 +54,6 @@ public class Interface {
         // System.out.println(bindFont.getName());
     }
 
-    protected static HBox createItem(Keybind k) {
-        Button bindButton = new Button(GlobalKeyListener.createKeybindString(k.getEvent()));
-        bindButton.getStyleClass().addAll("text_color0");
-        bindButton.setPrefHeight(ITEM_HEIGHT - PADDING.getBottom() * 2);
-        bindButton.getStyleClass().add("font");
-        bindButton.setOnMouseClicked((e) -> {
-            k.setEvent(Keybind.DEFAULT_EVENT);
-            GlobalKeyListener.toBeChanged = k;
-            GlobalKeyListener.BINDING_MODE = true;
-            System.out.println(k.equals(GlobalKeyListener.toBeChanged));
-        });
-
-        TextArea contentTextArea = new TextArea();
-        contentTextArea.setPrefColumnCount(1);
-        contentTextArea.setText(k.getContent());
-
-        Button deleteButton = new Button("delete");
-        deleteButton.setPrefHeight(ITEM_HEIGHT - PADDING.getBottom() * 2);
-        deleteButton.getStyleClass().addAll("text_color0");
-        deleteButton.setOnAction((e) -> GlobalKeyListener.bindList.remove(k));
-
-        HBox item = new HBox(bindButton, contentTextArea, deleteButton);
-        item.getStyleClass().add("item");
-        item.setPrefHeight(Interface.ITEM_HEIGHT);
-        item.setAlignment(Pos.CENTER_LEFT);
-        item.setPadding(PADDING);
-        item.setSpacing(10);
-        HBox.setHgrow(contentTextArea, Priority.SOMETIMES);
-        return item;
-    }
-
     public static void openBindWindow() {
         Platform.runLater(() -> {
             Stage stage = new Stage();
@@ -95,10 +62,28 @@ public class Interface {
             stage.setScene(new Scene(root));
             stage.setTitle("My modal window");
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(App.stage);
             stage.show();
         });
 
+    }
+
+    public static void openEditContentWindow() {
+        Platform.runLater(() -> {
+            TextArea contentAreaExtended = new TextArea();
+            Button okButton = new Button();
+            Button cancelButton = new Button();
+            Parent root = new GridPane();
+            root.getChildrenUnmodifiable().addAll(okButton, cancelButton, contentAreaExtended);
+            GridPane.setColumnSpan(contentAreaExtended, 2);
+        
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("My modal window");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.show();
+            
+        });
+        ;
     }
 
 }
