@@ -1,5 +1,6 @@
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
+import java.io.Serializable;
 import javafx.animation.StrokeTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -18,12 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
-public class Keybind {
+public class Keybind implements Serializable {
 
     protected final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
     private final static StrokeTransition st = new StrokeTransition(Duration.millis(200), null, Color.AQUAMARINE, Color.BLUE);
     private final static StringBuilder sb = new StringBuilder();
 
+    private static final long serialVersionUID = 1L;
     private NativeKeyEvent event;
     private Button eventButton;
     private String content;

@@ -17,7 +17,6 @@ public class Interface {
 
     public static double ITEM_HEIGHT = 60;
     public static Insets PADDING = new Insets(10);
-    public static double LABEL_FONT_SIZE = 16;
     public static VBox content = new VBox();
 
     protected static void init(Stage primaryStage) {
@@ -64,6 +63,7 @@ public class Interface {
         GridPane.setHgrow(okButton, Priority.ALWAYS);
         GridPane.setHgrow(cancelButton, Priority.ALWAYS);
         okButton.setMaxWidth(Double.MAX_VALUE);
+        okButton.setOnAction(e-> stage.close());
         cancelButton.setMaxWidth(Double.MAX_VALUE);
         cancelButton.setOnAction(e -> {
             contentAreaExtended.setText(initialString);
