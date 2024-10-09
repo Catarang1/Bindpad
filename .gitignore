@@ -26,3 +26,5 @@ replay_pid*
 *.json
 .vscode/*
 **/.vscode/*
+.vscode/launch.json
+.vscode/settings.json
