@@ -1,10 +1,14 @@
 @font-face {
-    src: url('../res/NotoSansDisplay-Regular.ttf');
+    src: url('../res/NotoSans-SemiBold.ttf');
+    font-family: "Noto Sans SemiBold";
 }
 
-.font {
-    -fx-font-family: "Noto Sans Display";
+* {
+    -fx-font-family: "Noto Sans SemiBold";
+    font-family: "Noto Sans SemiBold";
     -fx-font-smoothing-type: LCD;
+    -fx-font-weight: 700;
+    font-weight: 700;
 }
 
 .item {
@@ -35,7 +39,7 @@
     -fx-text-fill: white; 
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
@@ -46,6 +50,7 @@
 
 .contentRoot {
     -fx-background-color: #12141a;
+    -fx-border-radius: 6px;
 }
 
 .contentRoot > * , .contentRoot > .text-area .content {

@@ -102,7 +102,7 @@ public class Keybind implements Serializable {
         contentArea.setPrefColumnCount(1);
         contentArea.setText(getContent());
         contentArea.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> content = newValue);
-
+  
         contentArea.setOnMouseClicked( e -> {
             if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2 ) {
                 String extendedAreaContent = Interface.openEditContentWindow(content);
