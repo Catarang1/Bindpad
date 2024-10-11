@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
@@ -10,8 +15,13 @@ public class GlobalKeyListener implements NativeKeyListener {
 	public static StringBuilder sb = new StringBuilder();
 	public static Keybind toBeChanged = null;
 	public static ArrayList<Keybind> bindList = new ArrayList<>();
+	public static Robot robot;
 
 	static {
+
+		try {
+			robot = new Robot();
+		} catch (AWTException e) {e.printStackTrace();}
 
 		bindList.add(new Keybind());
 		
@@ -28,6 +38,14 @@ public class GlobalKeyListener implements NativeKeyListener {
 						if (keybind.getEvent().getKeyCode() != newKeyboardEvent.getKeyCode()) continue;
 						if (keybind.getEvent().getModifiers() != newKeyboardEvent.getModifiers()) continue;
 						System.out.println(keybind.getContent());
+						StringSelection selection = new StringSelection(keybind.getContent());
+    					java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    					clipboard.setContents(selection, selection);
+						robot.keyPress(KeyEvent.VK_CONTROL);
+						robot.keyPress(KeyEvent.VK_V);
+						robot.keyRelease(KeyEvent.VK_V);
+						robot.keyRelease(KeyEvent.VK_CONTROL);
+						// https://stackoverflow.com/questions/20343716/my-custom-paste-from-clipboard-action
 					}
 				}
 			}	

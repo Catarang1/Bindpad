@@ -59,5 +59,3 @@ public class App extends Application {
 
 // TODO Serializable
 // TODO outline textarea in popout window
-// TODO emiting 
-// https://stackoverflow.com/questions/20343716/my-custom-paste-from-clipboard-action
