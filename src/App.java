@@ -49,7 +49,6 @@ public class App extends Application {
 		}
 
 		GlobalScreen.addNativeKeyListener(GlobalKeyListener.keyListener);
-
         /* HOOK TEST END */
 
         Interface.init(primaryStage);
@@ -58,4 +57,3 @@ public class App extends Application {
 }
 
 // TODO Serializable
-// TODO outline textarea in popout window

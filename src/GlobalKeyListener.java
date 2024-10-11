@@ -41,14 +41,18 @@ public class GlobalKeyListener implements NativeKeyListener {
 						StringSelection selection = new StringSelection(keybind.getContent());
     					java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     					clipboard.setContents(selection, selection);
+						if (newKeyboardEvent.getKeyChar() != '?') {
+							robot.keyPress(KeyEvent.VK_BACK_SPACE);
+							robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+						}
 						robot.keyPress(KeyEvent.VK_CONTROL);
 						robot.keyPress(KeyEvent.VK_V);
 						robot.keyRelease(KeyEvent.VK_V);
 						robot.keyRelease(KeyEvent.VK_CONTROL);
-						// https://stackoverflow.com/questions/20343716/my-custom-paste-from-clipboard-action
+						// https://stackoverflow.com/questions/20343716/my-custom-paste-from-clipboard-action 
 					}
 				}
-			}	
+			}
 		};
 	}
 

@@ -46,6 +46,8 @@
 
 .item > .text-area .content {
     -fx-background-color: #12141a;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
 }
 
 .contentRoot {
@@ -53,7 +55,13 @@
     -fx-border-radius: 6px;
 }
 
-.contentRoot > * , .contentRoot > .text-area .content {
+.contentRoot > * , .contentRoot > .text-area {
+    -fx-background-color: #171921;
+    /* -fx-background-radius: 6px;
+    -fx-border-radius: 6px;  */
+}
+
+.contentRoot * , .contentRoot > .text-area .content {
     -fx-background-color: #171921;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
