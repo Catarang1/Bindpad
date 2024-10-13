@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class Interface {
 
-    public static double ITEM_HEIGHT = 60;
+    public static double ITEM_HEIGHT = 80;
     public static Insets PADDING = new Insets(10);
     public static VBox content = new VBox();
 
@@ -27,9 +27,7 @@ public class Interface {
         addbutton.getStyleClass().addAll("text_color0", "item");
         addbutton.setPrefHeight(ITEM_HEIGHT);
         addbutton.setMaxWidth(Double.MAX_VALUE);
-        addbutton.setOnAction(e-> {
-            GlobalKeyListener.bindList.add(new Keybind());
-        });
+        addbutton.setOnAction(e-> GlobalKeyListener.bindList.add(new Keybind()));
 
         VBox wrapper = new VBox(content, addbutton);
         wrapper.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, null)));
@@ -39,10 +37,7 @@ public class Interface {
 
         ScrollPane root = new ScrollPane();
         root.setContent(wrapper);
-        root.setStyle("-fx-background: #12141a; -fx-background-color: #12141a");
-        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        root.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        root.setFitToWidth(true);
+        root.setId("root");
 
         primaryStage.setTitle("Bindpad");
         Scene scene = new Scene(root, 400, 600);
@@ -84,5 +79,4 @@ public class Interface {
         stage.showAndWait();
         return contentAreaExtended.getText();
     }
-
 }

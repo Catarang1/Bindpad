@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class Keybind implements Serializable {
@@ -27,10 +28,9 @@ public class Keybind implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private NativeKeyEvent event;
-    private Button eventButton;
     private String content;
-    private TextArea contentArea;
-    private HBox node;
+    
+    private KeybindNode node;
 
     static {
         st.setAutoReverse(true);
@@ -39,15 +39,15 @@ public class Keybind implements Serializable {
     public Keybind () {
         this.event = DEFAULT_EVENT;
         this.content = "Default String";
-        node = createNode();
+        node = new KeybindNode();
         Interface.content.getChildren().add(node);
     }
 
     public void setEvent(NativeKeyEvent event) {
         this.event = event;
         Platform.runLater( () -> {
-            this.eventButton.setText(createKeyCombinationString());
-            eventButton.setStyle("-fx-border-color: black");
+            node.eventButton.setText(createKeyCombinationString());
+            node.eventButton.setStyle("-fx-border-color: black");
         });
     }
 
@@ -84,55 +84,60 @@ public class Keybind implements Serializable {
 		return sb.toString();
 	}
 
-    public HBox createNode() {
-        eventButton = new Button(GlobalKeyListener.createKeybindString(getEvent()));
-        eventButton.setBorder(new Border(new BorderStroke(Color.BLACK, 
-        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        eventButton.getStyleClass().addAll("text_color0");
-        eventButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
-        eventButton.getStyleClass().add("font");
-        eventButton.setOnMouseClicked((e) -> {
-            eventButton.setStyle("-fx-border-color: #ab9df2");
-            eventButton.setText("bind");
-            GlobalKeyListener.toBeChanged = this;
-            GlobalKeyListener.BINDING_MODE = true;
-        });
+    private class KeybindNode extends HBox {
+        
+        protected Button eventButton;
+        protected TextArea contentArea;
 
-        contentArea = new TextArea();
-        contentArea.setPrefColumnCount(1);
-        contentArea.setText(getContent());
-        contentArea.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> content = newValue);
-  
-        contentArea.setOnMouseClicked( e -> {
-            if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2 ) {
-                String extendedAreaContent = Interface.openEditContentWindow(content);
-                content = extendedAreaContent;
-                contentArea.setText(extendedAreaContent);
+        private KeybindNode () {
+            {
+                eventButton = new Button(GlobalKeyListener.createKeybindString(getEvent()));
+                eventButton.setBorder(new Border(new BorderStroke(Color.BLACK, 
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                eventButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
+                eventButton.setOnMouseClicked((e) -> {
+                    eventButton.setStyle("-fx-border-color: #ab9df2");
+                    eventButton.setText("bind");
+                    GlobalKeyListener.toBeChanged = Keybind.this;
+                    GlobalKeyListener.BINDING_MODE = true;
+                });
+        
+                contentArea = new TextArea();
+                contentArea.setPrefColumnCount(1);
+                contentArea.setText(getContent());
+                contentArea.textProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> content = newValue);
+                contentArea.setOnMouseClicked( e -> {
+                    if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2 ) {
+                        String extendedAreaContent = Interface.openEditContentWindow(content);
+                        content = extendedAreaContent;
+                        contentArea.setText(extendedAreaContent);
+                    }
+                });
+        
+                Button deleteButton = new Button();
+                SVGPath svg = new SVGPath();
+                svg.setContent("M20.5001 6H3.5 M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.1665 8.5 M9.1709 4C9.58273 2.83481 10.694 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4");
+                svg.setStroke(Color.web("#ab9df2"));
+                svg.setFill(Color.TRANSPARENT);
+                svg.setStrokeWidth(1.6);
+                deleteButton.setGraphic(svg);
+                deleteButton.setPadding(Interface.PADDING);
+                deleteButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
+                deleteButton.getStyleClass().addAll("text_color0");
+                deleteButton.setOnAction((e) -> {
+                    Interface.content.getChildren().remove(this);
+                    GlobalKeyListener.bindList.remove(Keybind.this);
+                });
+        
+                this.getChildren().addAll(eventButton, contentArea, deleteButton);
+                this.getStyleClass().add("item");
+                this.setPrefHeight(Interface.ITEM_HEIGHT);
+                this.setAlignment(Pos.CENTER_LEFT);
+                this.setPadding(Interface.PADDING);
+                this.setSpacing(10);
+                HBox.setHgrow(contentArea, Priority.SOMETIMES);
             }
-        });
+        }
 
-        Button deleteButton = new Button();
-        SVGPath svg = new SVGPath();
-        svg.setContent("M20.5001 6H3.5 M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.1665 8.5 M9.1709 4C9.58273 2.83481 10.694 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4");
-        svg.setStroke(Color.web("#ab9df2"));
-        svg.setFill(Color.TRANSPARENT);
-        svg.setStrokeWidth(1.6);
-        deleteButton.setGraphic(svg);
-        deleteButton.setPadding(Interface.PADDING);
-        deleteButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
-        deleteButton.getStyleClass().addAll("text_color0");
-        deleteButton.setOnAction((e) -> {
-            Interface.content.getChildren().remove(node);
-            GlobalKeyListener.bindList.remove(this);
-        });
-
-        node = new HBox(eventButton, contentArea, deleteButton);
-        node.getStyleClass().add("item");
-        node.setPrefHeight(Interface.ITEM_HEIGHT);
-        node.setAlignment(Pos.CENTER_LEFT);
-        node.setPadding(Interface.PADDING);
-        node.setSpacing(10);
-        HBox.setHgrow(contentArea, Priority.SOMETIMES);
-        return node;
     }
 }

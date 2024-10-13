@@ -11,6 +11,14 @@
     font-weight: 700;
 }
 
+#root {
+    -fx-background: #12141a; 
+    -fx-background-color: #12141a;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: as-needed;
+    -fx-fit-to-width: true;
+}
+
 .item {
     -fx-background-color: #171921;
     -fx-border-color: black;
@@ -42,6 +50,11 @@
     -fx-font-size: 14px;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-wrap-text: true;
+}
+
+.text-area:focus {
+    -fx-border-color: #ab9df2;
 }
 
 .item > .text-area .content {
@@ -65,4 +78,63 @@
     -fx-background-color: #171921;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+    -fx-padding: 0;
+    -fx-max-width: 8px;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #5f4fb3;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+    -fx-max-width: 4px;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#ab9df2,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
 }
