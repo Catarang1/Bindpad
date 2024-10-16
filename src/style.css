@@ -1,6 +1,6 @@
 @font-face {
-    src: url('../res/NotoSans-SemiBold.ttf');
     font-family: "Noto Sans SemiBold";
+    src: url('../res/NotoSans-SemiBold.ttf');
 }
 
 * {

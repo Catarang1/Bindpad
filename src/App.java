@@ -34,7 +34,7 @@ public class App extends Application {
 
             GlobalKeyListener.bindList = (ArrayList<Keybind>) ois.readObject();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            System.out.println("Save file not found, proceeding with default objects loaded...");
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();
