@@ -22,12 +22,19 @@ public class Interface {
     protected static void init(Stage primaryStage) {
 
         content.setSpacing(10);
+        for (Keybind k : GlobalKeyListener.bindList) {
+            Interface.content.getChildren().add(k.getNode());
+        }
     
         Button addbutton = new Button("Add");
         addbutton.getStyleClass().addAll("text_color0", "item");
         addbutton.setPrefHeight(ITEM_HEIGHT);
         addbutton.setMaxWidth(Double.MAX_VALUE);
-        addbutton.setOnAction(e-> GlobalKeyListener.bindList.add(new Keybind()));
+        addbutton.setOnAction(e-> {
+            Keybind toBeAdded = new Keybind();
+            GlobalKeyListener.bindList.add(toBeAdded);
+            Interface.content.getChildren().add(toBeAdded.getNode());
+        });
 
         VBox wrapper = new VBox(content, addbutton);
         wrapper.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, null)));

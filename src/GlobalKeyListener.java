@@ -27,8 +27,9 @@ public class GlobalKeyListener implements NativeKeyListener {
 		
 		keyListener = new GlobalKeyListener() {
 			public void nativeKeyPressed(NativeKeyEvent newKeyboardEvent) {
+				System.out.println(newKeyboardEvent.getKeyCode() +" > "+ newKeyboardEvent.getKeyText(newKeyboardEvent.getKeyCode()));
 				// IGNORE MODIFIERS
-				if (isModifier(newKeyboardEvent) || newKeyboardEvent.getKeyCode() == NativeKeyEvent.VC_ENTER) return;
+				if (isToBeIgnored(newKeyboardEvent)) return;
 				if(BINDING_MODE) {
 					bindList.get(bindList.indexOf(toBeChanged)).setEvent(newKeyboardEvent);
 					BINDING_MODE = false;
@@ -56,12 +57,17 @@ public class GlobalKeyListener implements NativeKeyListener {
 		};
 	}
 
-	private static boolean isModifier(NativeKeyEvent e) {
+	private static boolean isToBeIgnored(NativeKeyEvent e) {
 		return 
 			e.getKeyCode() == NativeKeyEvent.VC_SHIFT ||
 			e.getKeyCode() == NativeKeyEvent.VC_CONTROL ||
 			e.getKeyCode() == NativeKeyEvent.VC_ALT ||
-			e.getKeyCode() == NativeKeyEvent.VC_META;
+			e.getKeyCode() == NativeKeyEvent.VC_META ||
+			e.getKeyCode() == NativeKeyEvent.VC_CONTEXT_MENU ||
+			e.getKeyCode() == NativeKeyEvent.VC_ENTER || 
+			e.getKeyCode() == 3638 ||
+			e.getKeyCode() == 29 ||
+			e.getKeyCode() == 56;
 	}
 
 	public static String createKeybindString(NativeKeyEvent nke) {

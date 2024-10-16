@@ -1,7 +1,6 @@
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 
 import java.io.Serializable;
-import javafx.animation.StrokeTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
@@ -17,30 +16,27 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 public class Keybind implements Serializable {
 
-    protected final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
-    private final static StrokeTransition st = new StrokeTransition(Duration.millis(200), null, Color.AQUAMARINE, Color.BLUE);
-    private final static StringBuilder sb = new StringBuilder();
+    transient protected final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
+    transient private final static StringBuilder sb = new StringBuilder();
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private NativeKeyEvent event;
     private String content;
     
-    private KeybindNode node;
+    transient private KeybindNode node = null;
 
-    static {
-        st.setAutoReverse(true);
+    public KeybindNode getNode() {
+        if (node == null) node = new KeybindNode();
+        return node;
     }
 
     public Keybind () {
         this.event = DEFAULT_EVENT;
         this.content = "Default String";
         node = new KeybindNode();
-        Interface.content.getChildren().add(node);
     }
 
     public void setEvent(NativeKeyEvent event) {
@@ -88,6 +84,13 @@ public class Keybind implements Serializable {
         
         protected Button eventButton;
         protected TextArea contentArea;
+        protected static String trashIcon = 
+            "M20.5001 6H3.5 M18.8332 8.5L18.3732 15.3991C18.1962" + 
+            "18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 1" +
+            "5.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 " + 
+            "6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62" +
+            "644 15.3991L5.1665 8.5 M9.1709 4C9.58273 2.83481 10" +
+            ".694 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4";
 
         private KeybindNode () {
             {
@@ -97,7 +100,7 @@ public class Keybind implements Serializable {
                 eventButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
                 eventButton.setOnMouseClicked((e) -> {
                     eventButton.setStyle("-fx-border-color: #ab9df2");
-                    eventButton.setText("bind");
+                    eventButton.setText("Bind");
                     GlobalKeyListener.toBeChanged = Keybind.this;
                     GlobalKeyListener.BINDING_MODE = true;
                 });
@@ -116,7 +119,7 @@ public class Keybind implements Serializable {
         
                 Button deleteButton = new Button();
                 SVGPath svg = new SVGPath();
-                svg.setContent("M20.5001 6H3.5 M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.1665 8.5 M9.1709 4C9.58273 2.83481 10.694 2 12.0002 2C13.3064 2 14.4177 2.83481 14.8295 4");
+                svg.setContent(trashIcon);
                 svg.setStroke(Color.web("#ab9df2"));
                 svg.setFill(Color.TRANSPARENT);
                 svg.setStrokeWidth(1.6);
