@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.AWTException;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
+//import java.awt.datatransfer.Transferable;
 
 public class Logic {
 
@@ -13,7 +13,7 @@ public class Logic {
 	public static Keybind toBeChanged = null;
 	public static ArrayList<Keybind> bindList = new ArrayList<>();
 	public static Robot robot;
-    private static Transferable transferable = null;
+    // private static Transferable transferable = null;
 
     static {
         try {
@@ -34,6 +34,11 @@ public class Logic {
         StringSelection selection = new StringSelection(s);
 		java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, selection);
+    }
+
+    public static void copyToClipboard(boolean keepingOriginalContentsOfClipboard, String s) {
+        // TODO IMPROVE backup clipboard content while manipulating the Bind contents; restore after;
+        throw new UnsupportedOperationException("Feature incomplete.");
     }
 
 }
