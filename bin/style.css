@@ -11,7 +11,7 @@
     font-weight: 700;
 }
 
-#root {
+.root {
     -fx-background: #12141a; 
     -fx-background-color: #12141a;
     -fx-hbar-policy: never;
@@ -20,7 +20,7 @@
 }
 
 .item {
-    -fx-background-color: #171921;
+    -fx-background-color: #1b1f30;
     -fx-border-color: black;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
@@ -69,13 +69,13 @@
 }
 
 .contentRoot > * , .contentRoot > .text-area {
-    -fx-background-color: #171921;
+    -fx-background-color: #1b1f30;
     /* -fx-background-radius: 6px;
     -fx-border-radius: 6px;  */
 }
 
 .contentRoot * , .contentRoot > .text-area .content {
-    -fx-background-color: #171921;
+    -fx-background-color: #1b1f30;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
 }

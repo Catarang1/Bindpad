@@ -19,28 +19,25 @@ public class App extends Application {
     public static Stage stage;
 
     public static void main(String[] args) throws Exception {
+        System.setProperty("prism.lcdtext", "false");
+        System.setProperty("prism.text", "t2k");
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        System.setProperty("prism.lcdtext", "false");
-        System.setProperty("prism.text", "t2k");
         stage = primaryStage;
 
+        // Try to load save file, otherwise continue with default values
         try (FileInputStream fis = new FileInputStream("bind.sav");
                 ObjectInputStream ois = new ObjectInputStream(fis);) {
-
-            GlobalKeyListener.bindList = (ArrayList<Keybind>) ois.readObject();
+                Logic.bindList = (ArrayList<Keybind>) ois.readObject();
         } catch (IOException ioe) {
             System.out.println("Save file not found, proceeding with default objects loaded...");
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();
         }
-
-        // Verify list data
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -53,7 +50,7 @@ public class App extends Application {
 
                 try (FileOutputStream fos = new FileOutputStream("bind.sav");
                         ObjectOutputStream oos = new ObjectOutputStream(fos);) {
-                    oos.writeObject(GlobalKeyListener.bindList);
+                    oos.writeObject(Logic.bindList);
                     oos.close();
                     fos.close();
                 } catch (IOException e) {
@@ -64,7 +61,6 @@ public class App extends Application {
                 System.exit(0);
             }
         });
-        /* HOOK TEST */
 
         try {
             GlobalScreen.registerNativeHook();
@@ -74,12 +70,9 @@ public class App extends Application {
             System.exit(1);
         }
 
-        GlobalScreen.addNativeKeyListener(GlobalKeyListener.keyListener);
-        /* HOOK TEST END */
+        GlobalScreen.addNativeKeyListener(GlobalKeyListener.get());
 
         Interface.init(primaryStage);
         primaryStage.show();
     }
 }
-
-// TODO Serializable

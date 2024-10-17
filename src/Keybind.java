@@ -19,7 +19,7 @@ import javafx.scene.shape.SVGPath;
 
 public class Keybind implements Serializable {
 
-    transient protected final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
+    transient private final static NativeKeyEvent DEFAULT_EVENT = new NativeKeyEvent(NativeKeyEvent.NATIVE_KEY_PRESSED, 0, 112, 59, '?', 1);
     transient private final static StringBuilder sb = new StringBuilder();
 
     private static final long serialVersionUID = 2L;
@@ -94,15 +94,15 @@ public class Keybind implements Serializable {
 
         private KeybindNode () {
             {
-                eventButton = new Button(GlobalKeyListener.createKeybindString(getEvent()));
+                eventButton = new Button(Keybind.this.createKeyCombinationString());
                 eventButton.setBorder(new Border(new BorderStroke(Color.BLACK, 
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 eventButton.setPrefHeight(Interface.ITEM_HEIGHT - Interface.PADDING.getBottom() * 2);
                 eventButton.setOnMouseClicked((e) -> {
                     eventButton.setStyle("-fx-border-color: #ab9df2");
                     eventButton.setText("Bind");
-                    GlobalKeyListener.toBeChanged = Keybind.this;
-                    GlobalKeyListener.BINDING_MODE = true;
+                    Logic.toBeChanged = Keybind.this;
+                    Logic.BINDING_MODE = true;
                 });
         
                 contentArea = new TextArea();
@@ -129,7 +129,7 @@ public class Keybind implements Serializable {
                 deleteButton.getStyleClass().addAll("text_color0");
                 deleteButton.setOnAction((e) -> {
                     Interface.content.getChildren().remove(this);
-                    GlobalKeyListener.bindList.remove(Keybind.this);
+                    Logic.bindList.remove(Keybind.this);
                 });
         
                 this.getChildren().addAll(eventButton, contentArea, deleteButton);

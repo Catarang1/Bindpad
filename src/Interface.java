@@ -15,24 +15,22 @@ import javafx.stage.Stage;
 
 public class Interface {
 
-    public static double ITEM_HEIGHT = 80;
+    public static double ITEM_HEIGHT = 80.0d;
     public static Insets PADDING = new Insets(10);
     public static VBox content = new VBox();
 
     protected static void init(Stage primaryStage) {
-
         content.setSpacing(10);
-        for (Keybind k : GlobalKeyListener.bindList) {
+        for (Keybind k : Logic.bindList) {
             Interface.content.getChildren().add(k.getNode());
         }
-    
-        Button addbutton = new Button("Add");
-        addbutton.getStyleClass().addAll("text_color0", "item");
+        Button addbutton = new Button("ADD");
+        addbutton.getStyleClass().add("item");
         addbutton.setPrefHeight(ITEM_HEIGHT);
         addbutton.setMaxWidth(Double.MAX_VALUE);
         addbutton.setOnAction(e-> {
             Keybind toBeAdded = new Keybind();
-            GlobalKeyListener.bindList.add(toBeAdded);
+            Logic.bindList.add(toBeAdded);
             Interface.content.getChildren().add(toBeAdded.getNode());
         });
 
@@ -45,9 +43,10 @@ public class Interface {
         ScrollPane root = new ScrollPane();
         root.setContent(wrapper);
         root.setId("root");
+        root.getStyleClass().add("root");
 
         primaryStage.setTitle("Bindpad");
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root, 500, 650);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
     }
@@ -55,8 +54,8 @@ public class Interface {
     public static String openEditContentWindow(String initialString) {
         Stage stage = new Stage();
         TextArea contentAreaExtended = new TextArea(initialString);
-        Button okButton = new Button("Submit");
-        Button cancelButton = new Button("Cancel");
+        Button okButton = new Button("SUBMIT");
+        Button cancelButton = new Button("CANCEL");
         GridPane root = new GridPane();
         root.setBackground(new Background(new BackgroundFill(Color.web("#12141a"),  
             CornerRadii.EMPTY, Insets.EMPTY)));
